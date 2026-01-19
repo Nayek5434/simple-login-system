@@ -1,0 +1,65 @@
+// Background particles
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+const particles = Array.from({ length: 120 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2 + 1,
+  dx: (Math.random() - 0.5) * 0.6,
+  dy: (Math.random() - 0.5) * 0.6,
+}));
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#00f2fe";
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    p.x += p.dx; p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// Elements
+const mainForm = document.getElementById("main-form");
+const otpForm = document.getElementById("otp-form");
+const error = document.getElementById("error");
+const otpError = document.getElementById("otp-error");
+
+// Load users.json
+let users = [];
+fetch("users.json")
+  .then(res => res.json())
+  .then(data => users = data);
+
+// Login
+mainForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const user = users.find(u => u.username === username && u.password === password);
+  if (user) {
+    mainForm.style.display = "none";
+    otpForm.style.display = "block";
+    otpForm.dataset.user = user.username;
+  } else {
+    error.textContent = "Invalid credentials!";
+  }
+});
+
+// OTP
+otpForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const code = document.getElementById("otp").value.trim();
+  const user = users.find(u => u.username === otpForm.dataset.user);
+  if (user && code === user.otp) {
+    window.location.href = "https://github.com/Nayek5434";
+  } else {
+    otpError.textContent = "Invalid OTP!";
+  }
+});

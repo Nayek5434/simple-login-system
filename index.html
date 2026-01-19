@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Futuristic Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <div class="card" id="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Security_icon.svg/1024px-Security_icon.svg.png" 
+         alt="Security" class="security-img" />
+    <h2 id="title">Login</h2>
+    <p class="subtitle">Enter your credentials</p>
+
+    <!-- Main form -->
+    <form id="main-form">
+      <div class="field">
+        <span class="icon">👤</span>
+        <input id="username" type="text" placeholder="Username" required />
+      </div>
+      <div class="field">
+        <span class="icon">🔒</span>
+        <input id="password" type="password" placeholder="Password" required />
+      </div>
+      <button class="btn" type="submit">Login</button>
+      <div class="error" id="error"></div>
+    </form>
+
+    <!-- OTP form -->
+    <form id="otp-form" style="display:none;">
+      <div class="field">
+        <span class="icon">🔑</span>
+        <input id="otp" type="text" placeholder="Enter OTP" required />
+      </div>
+      <button class="btn" type="submit">Verify OTP</button>
+      <div class="error" id="otp-error"></div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: #e0f7fa;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+}
+canvas#bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+.card {
+  position: relative;
+  z-index: 1;
+  width: 360px;
+  margin: 12vh auto 0;
+  padding: 2rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 28px rgba(0, 255, 255, 0.35);
+  text-align: center;
+}
+.security-img {
+  width: 60px;
+  margin-bottom: 10px;
+}
+.field {
+  margin: 12px 0;
+  position: relative;
+}
+.field input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.12);
+  color: #e0f7fa;
+}
+.icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  color: #0f2027;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.error { color: #ff6b6b; font-size: 13px; }

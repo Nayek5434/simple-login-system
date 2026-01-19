@@ -1,0 +1,22 @@
+[
+  {
+    "username": "Biswajit",
+    "password": "Biswajit@123",
+    "otp": "123456"
+  },
+  {
+    "username": "Piu",
+    "password": "friendship",
+    "otp": "654321"
+  },
+  {
+    "username": "Shankha",
+    "password": "demo123",
+    "otp": "111111"
+  },
+  {
+    "username": "Rajdip",
+    "password": "demo123",
+    "otp": "123456"
+  }
+]
