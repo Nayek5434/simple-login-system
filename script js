@@ -1,0 +1,104 @@
+// Background particles
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for (let i = 0; i < 150; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 1,
+    dx: (Math.random() - 0.5) * 0.6,
+    dy: (Math.random() - 0.5) * 0.6,
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#00f2fe";
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// Confetti burst
+function burstConfetti() {
+  for (let i = 0; i < 100; i++) {
+    const conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.style.left = Math.random() * window.innerWidth + "px";
+    conf.style.top = "-10px";
+    conf.style.backgroundColor = ["#00f2fe","#4facfe","#a0ffea","#fff"][Math.floor(Math.random()*4)];
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 1500);
+  }
+}
+
+// Password strength meter
+const passwordInput = document.getElementById("password");
+const strengthDiv = document.getElementById("strength");
+passwordInput.addEventListener("input", () => {
+  const val = passwordInput.value;
+  let strength = "Weak";
+  if (val.length > 8 && /[A-Z]/.test(val) && /\d/.test(val) && /[^A-Za-z0-9]/.test(val)) {
+    strength = "Strong";
+  } else if (val.length > 5) {
+    strength = "Medium";
+  }
+  strengthDiv.textContent = "Strength: " + strength;
+});
+
+// Forms
+const mainForm = document.getElementById("main-form");
+const otpForm = document.getElementById("otp-form");
+const error = document.getElementById("error");
+const otpError = document.getElementById("otp-error");
+
+mainForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const password = document.getElementById("password").value;
+  if (password === "demo123") {
+    mainForm.style.display = "none";
+    otpForm.style.display = "block";
+  } else {
+    error.textContent = "Invalid credentials!";
+  }
+});
+
+otpForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const code = document.getElementById("otp").value;
+  if (code === "123456") {
+    burstConfetti();
+    alert("Login successful 🎉");
+  } else {
+    otpError.textContent = "Invalid OTP!";
+  }
+});
+
+// Switch to Register
+function switchForm() {
+  document.getElementById("form-title").textContent = "Register";
+  mainForm.innerHTML = `
+    <input type="text" placeholder="👤 Username" required>
+    <input type="email" placeholder="📧 Email" required>
+    <input type="password" placeholder="🔒 Password" required>
+    <div id="strength"></div>
+    <button type="submit">Register</button>
+  `;
+  mainForm.onsubmit = e => {
+    e.preventDefault();
+    burstConfetti();
+    alert("Registered successfully 🎉");
+  };
+}
